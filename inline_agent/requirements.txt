@@ -1,0 +1,5 @@
+streamlit==1.32.0
+langchain-mcp-adapters>=0.0.1
+langchain-aws>=0.0.1
+langgraph>=0.0.15
+boto3>=1.28.0

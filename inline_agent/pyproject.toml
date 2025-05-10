@@ -1,0 +1,14 @@
+[project]
+name = "inline-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain>=0.3.25",
+    "langchain-aws>=0.2.22",
+    "langchain-community>=0.3.23",
+    "langchain-mcp-adapters>=0.0.10",
+    "langgraph>=0.4.1",
+    "streamlit>=1.45.0",
+]
