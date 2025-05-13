@@ -4,10 +4,10 @@
 
 ## ディレクトリ構成
 
-### inline_agent
+### mcp_client
 - MCPサーバー構築後にプログラムから利用できることを確認するためのコード群です
 - cliから動作確認するためのmain.pyと、streamlitを利用して実装したGUIのコードであるmain_gui.pyがあります
-- それぞれの実行方法に関してはinline_agentディレクトリ下のREADMEに詳しく記載しています
+- それぞれの実行方法に関してはmcp_clientディレクトリ下のREADMEに詳しく記載しています
 
 ### mcp_server
 - サンプルのMCPサーバーのコード群になります。以下のMCPのドキュメントのQuickStartを愚直に行なったものになります
@@ -29,7 +29,7 @@
 - プロジェクト管理に**uv**を利用しているので、事前にインストールしておいてください
     - こちらも上記の[QuickStart](https://modelcontextprotocol.io/quickstart/server)を参考にしてください
 - AWS CLIの認証設定
-    - Inline Agentによるプログラムからの実行を試す場合は、東京リージョン(ap-northeast-1)だけではなく、バージニア北部(us-east-1)のプロファイルも用意しておいてください
+    - mcp_client のプログラムからの実行を試す場合は、東京リージョン(ap-northeast-1)だけではなく、バージニア北部(us-east-1)のプロファイルも用意して切り替えるか、環境変数のAWS_REGIONをus-east-1に変更してください
 
 ### inline_agent / mcp_server ディレクトリ共通のセットアップ
 

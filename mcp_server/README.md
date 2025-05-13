@@ -10,7 +10,7 @@ https://modelcontextprotocol.io/introduction の Quickstart（For Server Develop
 ## ローカルでの動作確認方法
 
 1. mcp_serverディレクトリに移動
-2. weather.pyの L94 ```mcp.run(transport="stdio")``` をコメントインし、L95 ```mcp.run(transport="sse")```をコメントアウトする
+2. weather.pyの L94 ```mcp.run(transport="stdio")``` をコメントインし、L95 ```mcp.run(transport="streamable_http")```をコメントアウトする
 3. (Claude for Desktopで確認する場合の例) ```code ~/Library/Application\ Support/Claude/claude_desktop_config.json``` で Claude for Desktop の設定ファイルを開く
 4. 以下を記載し、保存する
     ``` 
@@ -32,7 +32,7 @@ https://modelcontextprotocol.io/introduction の Quickstart（For Server Develop
 
 ## Dockerでの動作確認方法
 1. mcp_serverディレクトリに移動
-2. weather.pyの L94 ```mcp.run(transport="stdio")``` をコメントインし、L95 ```mcp.run(transport="sse")```をコメントアウトする
+2. weather.pyの L94 ```mcp.run(transport="stdio")``` をコメントインし、L95 ```mcp.run(transport="streamable_http")```をコメントアウトする
 3. ```docker build -t mcp-server . ```を実行してdockerイメージをビルドする
 4. (Claude for Desktopで確認する場合の例) ```code ~/Library/Application\ Support/Claude/claude_desktop_config.json``` で Claude for Desktop の設定ファイルを開く
 5. 以下を記載し、保存する
@@ -74,19 +74,19 @@ https://modelcontextprotocol.io/introduction の Quickstart（For Server Develop
     docker push <アカウントID>.dkr.ecr.<リージョン>.amazonaws.com/weather-mcp-server:latest
     ```
 6. 記事を参考にしてECS周りを手動で作成 or Terraformで作成
-7. ```uv tool install mcp-proxy```で mcp-proxy をインストール
+7. ```npm install -g mcp-remote```で mcp-remote をインストール
 8. (Claude for Desktopで確認する場合の例) ```code ~/Library/Application\ Support/Claude/claude_desktop_config.json``` で Claude for Desktop の設定ファイルを開く
 9. 以下を記載し、保存する
     ``` 
     {
         "mcpServers": {
-          "weather": {
-            "command": "mcp-proxy", // macの場合はフルパスを指定する必要があります
-            "args": [
-                "http://ECSのパブリックIP:8000/sse"
-            ],
-            "env": {}
-          }
+            "weather-ecs": {
+                "command": "mcp-remote", // macの場合はフルパスを指定する必要があります
+                "args": [
+                    "http://52.195.167.65:8000/mcp/",
+                    "--allow-http"
+                ]
+            }
         }
     }
     ```

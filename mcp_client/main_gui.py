@@ -98,7 +98,7 @@ async def process_input(user_input):
             {
                 "weather": {
                     "url": st.session_state.mcp_server_url,
-                    "transport": "sse",
+                    "transport": "streamable_http",
                 }
             }
         ) as client:
@@ -182,7 +182,7 @@ with st.sidebar:
     
     # Initialize session state for configuration
     if "mcp_server_url" not in st.session_state:
-        st.session_state.mcp_server_url = "http://ECSのIP:8000/sse"
+        st.session_state.mcp_server_url = "http://ECSのパブリックIP:8000/mcp/"
     
     if "model_id" not in st.session_state:
         st.session_state.model_id = "us.anthropic.claude-3-7-sonnet-20250219-v1:0"

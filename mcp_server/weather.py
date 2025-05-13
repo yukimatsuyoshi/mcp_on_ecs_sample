@@ -1,9 +1,10 @@
-from typing import Any
 import httpx
-from mcp.server.fastmcp import FastMCP
+import logging
+from typing import Any
+from fastmcp import FastMCP
 
 # Initialize FastMCP server
-mcp = FastMCP("weather")
+mcp = FastMCP("weather", stateless_http=True)
 
 # Constants
 NWS_API_BASE = "https://api.weather.gov"
@@ -21,6 +22,7 @@ async def make_nws_request(url: str) -> dict[str, Any] | None:
             response.raise_for_status()
             return response.json()
         except Exception:
+            logging.error(f"Error fetching data from NWS API: {url}")
             return None
 
 def format_alert(feature: dict) -> str:
@@ -45,9 +47,11 @@ async def get_alerts(state: str) -> str:
     data = await make_nws_request(url)
 
     if not data or "features" not in data:
+        logging.error(f"Error fetching alerts for state {state}: {data}")
         return "Unable to fetch alerts or no alerts found."
 
     if not data["features"]:
+        logging.info(f"No active alerts for state {state}.")
         return "No active alerts for this state."
 
     alerts = [format_alert(feature) for feature in data["features"]]
@@ -66,6 +70,7 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     points_data = await make_nws_request(points_url)
 
     if not points_data:
+        logging.error(f"Error fetching points data for {latitude}, {longitude}: {points_data}")
         return "Unable to fetch forecast data for this location."
 
     # Get the forecast URL from the points response
@@ -73,6 +78,7 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     forecast_data = await make_nws_request(forecast_url)
 
     if not forecast_data:
+        logging.error(f"Error fetching forecast data from {forecast_url}: {forecast_data}")
         return "Unable to fetch detailed forecast."
 
     # Format the periods into a readable forecast
@@ -92,4 +98,4 @@ Forecast: {period['detailedForecast']}
 if __name__ == "__main__":
     # Initialize and run the server
     # mcp.run(transport="stdio") # ローカル、dockerでの実行用
-    mcp.run(transport="sse")
+    mcp.run(transport="streamable-http", host="0.0.0.0", port=8000, log_level="debug")
