@@ -3,7 +3,8 @@
 MCPサーバーをECSで起動するためのインフラリソースを管理するサンプルコードになります
 
 ## リソースのデプロイ手順
-1. AWS CLIの認証設定に関して、東京リージョンのプロファイルであることを確認してください（そうでない場合は切り替える）
+1. AWS CLIの認証設定に関して、東京リージョンのプロファイルであることを確認してください
+    - そうでない場合は、コマンドプロンプト/ターミナルの環境変数AWS_REGIONを```ap-northeast-1```に変更してください
 2. terraformディレクトリに移動し、```terraform init```を実行
 3. 先にECRリポジトリのみデプロイしたいので、ECRのリソースにターゲットを絞って```terraform plan```を実行
     - ```terraform plan -target aws_ecr_repository.app_repo```
@@ -13,4 +14,5 @@ MCPサーバーをECSで起動するためのインフラリソースを管理�
 READMEを参照）
 6. 残りのリソースをデプロイするために、ターゲットを絞らず```terraform plan```を実行
 7. plan結果に問題がなければ、```terraform apply```を実行
-8. ECSのコンソールでタスクが正常起動することを確認したら、Claude for Desktop や Cline で動作確認
+8. apply成功後、[Qiita記事]()を参考にECSのタスクを起動
+8. ECSのコンソールでタスクが正常起動することを確認したら、Claude for Desktop や GitHub Copilot で動作確認

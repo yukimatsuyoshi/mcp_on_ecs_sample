@@ -1,6 +1,6 @@
 # MCPサーバーサンプルコード
 
-[Qiitaの記事:]()のサンプルコードになります。お手元にcloneしてコードを実行しながら記事を読み進めていただければ幸いです。また、記事の読了後に独自のMCPサーバーを立てるのにも役立ててください。
+[Qiitaの記事:「」]()のサンプルコードになります。記事を読み進める際に参考にしていただければと思います。
 
 ## ディレクトリ構成
 
@@ -31,12 +31,12 @@
 - AWS CLIの認証設定
     - mcp_client のプログラムからの実行を試す場合は、東京リージョン(ap-northeast-1)だけではなく、バージニア北部(us-east-1)のプロファイルも用意して切り替えるか、環境変数のAWS_REGIONをus-east-1に変更してください
 
-### inline_agent / mcp_server ディレクトリ共通のセットアップ
+### mcp_server / mcp_client ディレクトリ共通のセットアップ
 
 1. 仮想環境を作成して有効化します：
 
 ```bash
-python -m venv .venv
+uv venv
 source .venv/bin/activate  # Linuxの場合
 # または
 .venv\Scripts\activate  # Windowsの場合
