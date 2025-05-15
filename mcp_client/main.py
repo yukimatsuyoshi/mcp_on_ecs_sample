@@ -17,12 +17,7 @@ async def call_agent(user_input):
             "weather": {
                 "url": os.environ['MCP_SERVER_ENDPOINT_HTTP'],
                 "transport": "streamable_http",
-            },
-            # transportがSSEの場合
-            # "weather": {
-            #     "url": os.environ['MCP_SERVER_ENDPOINT_SSE'],
-            #     "transport": "sse",
-            # }
+            }
         }
     ) as client:
         # Create the agent with tools

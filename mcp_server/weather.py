@@ -3,8 +3,10 @@ import logging
 from typing import Any
 from fastmcp import FastMCP
 
+logging.basicConfig(level=logging.INFO)
+
 # Initialize FastMCP server
-mcp = FastMCP("weather", stateless_http=True)
+mcp = FastMCP("weather")
 
 # Constants
 NWS_API_BASE = "https://api.weather.gov"
@@ -20,6 +22,7 @@ async def make_nws_request(url: str) -> dict[str, Any] | None:
         try:
             response = await client.get(url, headers=headers, timeout=30.0)
             response.raise_for_status()
+            logging.info(f"Succeed in Fetched data from NWS API: {url}")
             return response.json()
         except Exception:
             logging.error(f"Error fetching data from NWS API: {url}")

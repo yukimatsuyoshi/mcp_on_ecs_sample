@@ -62,7 +62,7 @@ resource "aws_ecs_service" "app_service" {
   cluster         = aws_ecs_cluster.app_cluster.id
   task_definition = aws_ecs_task_definition.app_task.arn
   launch_type     = "FARGATE"
-  desired_count   = 1
+  desired_count   = 0  # タスクの起動は手動で行うようにする
   
   # ネットワーク設定
   network_configuration {
